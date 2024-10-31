@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados{% endblock %}
+
+{% block content %}
+<h2>Resultados para sua consulta</h2>
+
+<!-- Formulário de Filtro -->
+<form method="post" action="/resultados">
+    <label for="filtro">Filtrar por Descrição Especifica:</label>
+    <select id="filtro" name="filtro" style="padding: 8px; margin-right: 10px;">
+        <option value="">Todos</option>
+        <option value="caixa" {% if filtro == 'caixa' %}selected{% endif %}>Caixa</option>
+        <option value="pulseira" {% if filtro == 'pulseira' %}selected{% endif %}>Pulseira</option>
+        <option value="mostrador" {% if filtro == 'mostrador' %}selected{% endif %}>Mostrador</option>
+        <option value="tige" {% if filtro == 'tige' %}selected{% endif %}>Tige</option>
+        <option value="maquinismo" {% if filtro == 'maquinismo' %}selected{% endif %}>Maquinismo</option>
+        <option value="coroa" {% if filtro == 'coroa' %}selected{% endif %}>Coroa</option>
+        <option value="junta" {% if filtro == 'junta' %}selected{% endif %}>Junta</option>
+        <option value="fundo de aço" {% if filtro == 'fundo de aço' %}selected{% endif %}>Fundo de aço</option>
+        <option value="suporte do maquinismo" {% if filtro == 'suporte do maquinismo' %}selected{% endif %}>Suporte do maquinismo</option>
+        <option value="jogos de ponteiros" {% if filtro == 'jogos de ponteiros' %}selected{% endif %}>Jogos de ponteiros</option>
+        <option value="ponteiro" {% if filtro == 'ponteiro' %}selected{% endif %}>Ponteiro</option>
+    </select>
+    <input type="hidden" name="referencias" value="{{ referencias_input }}">
+    <button type="submit" style="padding: 8px 16px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Aplicar Filtro</button>
+</form>
+
+{% if resultados|length > 0 %}
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">Referencia</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Componente</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Descrição</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Descrição Especifica</th>
+            </tr>
+        </thead>
+        <tbody id="resultados">
+        {% for resultado in resultados %}
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ resultado.Referencia }}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ resultado.Componente }}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ resultado.Descrição }}</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">{{ resultado['Descrição Especifica'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum resultado encontrado.</p>
+{% endif %}
+
+<a href="/" class="back-button" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Voltar</a>
+{% endblock %}

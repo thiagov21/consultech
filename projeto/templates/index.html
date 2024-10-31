@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Consultech</h2>
+<p>Utilize campo abaixo para consulta. 
+<p>(Até 50 referencias por consulta):</p>
+<form action="/resultados" method="post" class="search-form">
+    <textarea name="referencias" placeholder="Digite as referências do relógio..." required></textarea>
+    <button type="submit">Buscar</button>
+</form>
+{% endblock %}
